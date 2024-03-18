@@ -1,0 +1,10 @@
+Step 1 GCC
+  Gcc is a open source compiler well need so the computer can read what we give it. If this step doesnt work for some reason youll need to download gcc.
+  1. Lets see if we have it   $ module avail gcc
+
+  ------------------------------- /usr/tce/modulefiles/toolchains/Core -------------------------------
+     gcc/10.3.1-magic (D)    gcc/11.2.1-magic    gcc/12.1.1-magic
+     gcc/10.3.1              gcc/11.2.1          gcc/12.1.1
+
+  2. 
+    
