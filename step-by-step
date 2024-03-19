@@ -6,5 +6,71 @@ Step 1 GCC
      gcc/10.3.1-magic (D)    gcc/11.2.1-magic    gcc/12.1.1-magic
      gcc/10.3.1              gcc/11.2.1          gcc/12.1.1
 
-  2. 
+  2. Load one of thesse $ module load gcc/12.1.1-magic
+    Lmod is automatically replacing "intel-classic/2021.6.0-magic" with "gcc/12.1.1-magic".
+
+      Due to MODULEPATH changes, the following have been reloaded:
+        1) mvapich2/2.3.7
+   
+  3. Check it worked $ gcc --version
+      gcc (GCC) 12.1.1 20220628 (Red Hat 12.1.1-3)
+    Copyright (C) 2022 Free Software Foundation, Inc.
+    This is free software; see the source for copying conditions.  There is NO
+    warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+
+Step 2. Creating the directory the you os (operating system) resides in
+  1.  Make directory   $ mkdir os
+  2.  Open directory   $ cd os
+  3.  inside:       os $ 
+
+Step 3. Clone git
+  1. os $ /usr/bin/time git clone git://gcc.gnu.org/git/gcc.git
+      Updating files: 100% (134103/134103), done.
+      485.17user 36.81system 14:12.68elapsed 61%CPU (0avgtext+0avgdata 1333416maxresident)k
+      758056inputs+4784040outputs (4561major+356307minor)pagefaults 0swaps
+
+Step 4. Update Math libraries (each one will load something)
+  1. $ mkdir tarballs
+  2. $ cd tarballs/
+  3. $ wget https://gmplib.org/download/gmp/gmp-6.3.0.tar.xz
+  4. $ wget https://www.mpfr.org/mpfr-current/mpfr-4.2.1.tar.bz2
+  5. $ wget https://ftp.gnu.org/gnu/mpc/mpc-1.3.1.tar.gz
+  6. $ wget https://gcc.gnu.org/pub/gcc/infrastructure/isl-0.24.tar.bz2
+  7. $ wget https://github.com/facebook/zstd/archive/refs/heads/dev.zip
+
+Step 5. UnTar these libraries
+  1. $ cd ../gcc
+  2. $ tar xf ../tarballs/gmp*
+  3. $ tar xf ../tarballs/mpc*
+  4. $ tar xf ../tarballs/mpfr*
+  5. $ tar xf ../tarballs/isl*
+
+Step 6. Fix the naming problem (files have the verson in their names)
+  1. $ ls -l | grep mpc    
+        drwx--S---  8 name os    4096 Dec 15  2022 mpc-1.3.1
+  2. $ ln -s mpfr-4.2.1 mpfr
+  3. $ ln -s gmp-6.3.0 gmp
+  4. $ ln -s mpc-1.3.1 mpc
+  5. $ ln -s isl-0.24 isl
+  6. Check with $ ls -l mpfr 
+        lrwxrwxrwx 1 name os 10 Mar 19 13:33 mpfr -> mpfr-4.2.1
+
+Step 7. zstd needs special istructions
+  1. $ cd ..
+  2. $ unzip tarballs/dev.zip
+      ...
+      zstd-dev/tests/cli-tests/bin/unzstd -> zstd
+      zstd-dev/tests/cli-tests/bin/zstdcat -> zstd
+  3. $ cd zstd-dev/
+  4. $ cd ..
+  5. $ mkdir zstd-build
+  6. $ cmake -S ../zstd-dev/build/cmake -B .
+        -- Build files have been written to: /os/zstd-build  
+  
     
+
+
+
+
+
+
