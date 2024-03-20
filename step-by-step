@@ -67,9 +67,58 @@ Step 7. zstd needs special istructions
   6. $ cmake -S ../zstd-dev/build/cmake -B .
         -- Build files have been written to: /os/zstd-build  
   
-    
+Step 8. Edit the make file
+  1. $ ccmake .         (include the period)
+      A. Arrow down to: CMAKE_INSTALL_PREFIX             /usr/local
+      B. Press Enter
+      C. Replace with the install path: /os/zstd-install
+      D. Press Enter
+      E. Press c  (to configure)
+      F. Press g  (to generate)
+  2. Build in parrallel $ srun -N 1-1 --exclusive make -j 100
+      ....
+      100%] Built target zstdmt
+      [100%] Built target zstdcat
+  
+Step 9. Create and install the zstd-install library in zstd-build
+  1. $ mkdir ../zstd-install
+  2. $ make install
+  3. Check it worked
+    A. $ cd ../zstd-install/
+    B. $ ls
+          bin  include  lib64  share
+    C. $ ls lib64
+          cmake  libzstd.a  libzstd.so  libzstd.so.1  
+                  libzstd.so.1.5.6  pkgconfig
+    D. $ cd ..     (in os directory)
 
+Step 10. gcc dedicated directory
+  1. $ cd gcc
+  2. $ git tag | grep gcc-13   
+      basepoints/gcc-13 releases/gcc-13.1.0 releases/gcc-13.2.0
+  3. $ git checkout      (updater)
+  4. $ cd ..             (os directroy)
+  5. $ mkdir gcc-build
+  6. $ cd gcc-build
+  7. $ mkdir ../gcc-instal
+  8. $ ../gcc/configure --with-zstd=/os/zstd-install/lib64 
+        --prefix=/os/gcc-install 
+         --enable-languages=c,c++,fortran     (all one line
+  9. $ tmux -S ../poodle17.tmux new    (This is to avoid timeouts)
+  10. $ /usr/bin/time srun -N 1-1 --exclusive -t 2:00:00 make -j 111    
+            Begin to wait this can/will take a long time  
+                  To leave tmux enter command: $ exit
 
+Step 11. Some git cloning
+  1. $ git clone https://gitlab.com/qemu-project/qemu.git
+  2. $ git clone git@github.com:tianocore/edk2.git
+  3. $ git clone git@github.com:acpica/acpica.git
+
+Step 12 Install gcc
+  1. $ srun -N 1-1 --exclusive make -j 111 install
+  2. $ make install
+
+Step 13
 
 
 
