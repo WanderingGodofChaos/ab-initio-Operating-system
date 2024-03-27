@@ -21,7 +21,6 @@ Step 1 GCC
 Step 2. Creating the directory the you os (operating system) resides in
   1.  Make directory   $ mkdir os
   2.  Open directory   $ cd os
-  3.  inside:       os $ 
 
 Step 3. Clone git
   1. os $ /usr/bin/time git clone git://gcc.gnu.org/git/gcc.git
