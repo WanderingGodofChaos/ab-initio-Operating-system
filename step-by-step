@@ -119,9 +119,9 @@ Step 12 Install gcc
 
 Step 13
   1. $ cd ..
-  2. $ cat >> jaos.sh
+  2. $ cat >> os.sh
      Input into the blank space: export PATH=/os/gcc-install/bin:$PATH
-  3.$ . jaos.sh
+  3.$ . os.sh
   4.$ which gcc
       Expected output: /os/gcc-install/bin/gcc
   5. $ gcc --version
